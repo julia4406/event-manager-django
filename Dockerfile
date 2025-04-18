@@ -4,7 +4,6 @@ LABEL authors="yulia.alekseeva12@gmail.com"
 RUN apk update && apk add --no-cache \
     gcc \
     musl-dev \
-    libffi-dev \
     postgresql-dev \
     curl \
     build-base \
@@ -17,13 +16,12 @@ ENV POETRY_VERSION=2.1.1
 RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH="/root/.local/bin:$PATH"
 
-#COPY pyproject.toml poetry.lock* README.md /app/
-COPY . /app
+COPY poetry.lock pyproject.toml README.md /app/
 
 RUN poetry config virtualenvs.create false \
-    && poetry install --only main,dev --no-interaction --no-ansi
+    && poetry install --only main,dev --no-root --no-interaction --no-ansi
 
-#COPY . /app/
+COPY . /app/
 
 EXPOSE 8000
 

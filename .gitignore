@@ -351,3 +351,4 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 /src/event/migrations/
+/todo.txt
