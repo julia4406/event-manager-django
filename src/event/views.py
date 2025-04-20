@@ -14,3 +14,12 @@ class EventViewSet(ModelViewSet):
     serializer_class = EventSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["request"] = self.request
+        return context
+
+
+class EventRegistration():
+    ...
