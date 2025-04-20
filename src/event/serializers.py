@@ -15,5 +15,6 @@ class EventSerializer(serializers.ModelSerializer):
             "start_of_event",
             "location",
             "event_format",
-            "organizer"
+            "organizer",
+            "participants"
         ]
