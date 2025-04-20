@@ -28,7 +28,13 @@ class EventValidators:
             raise ValidationError("Event already started")
 
     @staticmethod
-    def check_registration(request, event):
+    def already_registred(request, event):
         user = request.user
         if user in event.participants.all():
             raise ValidationError("You are already registered for this event.")
+
+    @staticmethod
+    def not_registred(request, event):
+        user = request.user
+        if request.user not in event.participants.all():
+            raise ValidationError("You are not registered for this event.")
