@@ -80,12 +80,17 @@ Follow the steps below to set up the project on your local machine:
 2. **Install Dependencies: Use Poetry to install all required dependencies:**
    ```bash
    poetry install
+   
+3. **Use the `.env.sample` file as a template to create your own `.env` file 
+   (simply copy all contents).**  
+ **Note:** These settings are provided for demonstration purposes only. For security reasons, you should replace them with your own environment-specific values.
 
-3. **Launch the Application: Spin up all services with Docker Compose:**
+
+4. **Launch the Application: Spin up all services with Docker Compose:**
    ```bash
    docker-compose up --build
    
-4. **Application will be available on your local machine. Enter in browser:**
+5. **Application will be available on your local machine. Enter in browser:**
 
 - to register new user
     ```bash
@@ -98,11 +103,11 @@ Follow the steps below to set up the project on your local machine:
    ```bash
     http://127.0.0.1:8000/event/
 
-5. **Configuration:**
+6. **Configuration:**
   - Configure environment variables as needed.
   - Review the pyproject.toml for dependency configurations.
 
-6. **Django admin panel:**
+7. **Django admin panel:**
 You can create superuser to have access to django admin panel
   - Enter into docker container:
     ```bash
