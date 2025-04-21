@@ -83,8 +83,12 @@ Follow the steps below to set up the project on your local machine:
    
 3. **Use the `.env.sample` file as a template to create your own `.env` file 
    (simply copy all contents).**  
- **Note:** These settings are provided for demonstration purposes only. For security reasons, you should replace them with your own environment-specific values.
-
+ - **Note:** These settings are provided for demonstration purposes only. For 
+   security reasons, you should replace them with your own environment-specific values.
+ - **Note2:** If you are using google - you have to set up EMAIL_HOST_PASSWORD 
+ in the security section of your account.
+   ```bash
+   https://myaccount.google.com/security
 
 4. **Launch the Application: Spin up all services with Docker Compose:**
    ```bash

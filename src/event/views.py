@@ -14,7 +14,7 @@ from event.event_schema_decorator import event_schema_view
 from event.models import Event
 from event.serializers import EventSerializer
 from event.validators import EventValidators as validator
-from event.tasks import send_event_registration_email
+from event.tasks import send_event_registration_email, send_event_cancel_email
 
 
 @event_schema_view()
@@ -79,4 +79,5 @@ class EventViewSet(ModelViewSet):
         validator.check_event_date(event)
         validator.not_registred(request, event)
         event.participants.remove(request.user)
+        send_event_cancel_email.delay(request.user.email, event.title)
         return Response({"status": "unregistered"}, status=status.HTTP_200_OK)
