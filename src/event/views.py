@@ -14,6 +14,7 @@ from event.event_schema_decorator import event_schema_view
 from event.models import Event
 from event.serializers import EventSerializer
 from event.validators import EventValidators as validator
+from event.tasks import send_event_registration_email
 
 
 @event_schema_view()
@@ -65,6 +66,7 @@ class EventViewSet(ModelViewSet):
         validator.check_event_date(event)
         validator.already_registred(self.request, event)
         event.participants.add(request.user)
+        send_event_registration_email.delay(request.user.email, event.title)
         return Response({"status": "registered"}, status=status.HTTP_200_OK)
 
     @action(
