@@ -46,7 +46,8 @@ user_organization_event_filter = {
             name="search",
             type=OpenApiTypes.STR,
             location=OpenApiParameter.QUERY,
-            description="Search by event title, location, or participant username",
+            description="Search by event title, location, "
+                        "or participant username",
         ),
         OpenApiParameter(
             name="event_format",
@@ -70,7 +71,8 @@ user_organization_event_filter = {
             name="ordering",
             type=OpenApiTypes.STR,
             location=OpenApiParameter.QUERY,
-            description="Sort by field (e.g. `event_date`, `title`, or `-title`)",
+            description="Sort by field (e.g. `event_date`,"
+                        " `title`, or `-title`)",
         ),
     ]
 }
@@ -86,7 +88,8 @@ def user_schema_view():
                     name="search",
                     type=OpenApiTypes.STR,
                     location=OpenApiParameter.QUERY,
-                    description="Search by username, email, first name or last name",
+                    description="Search by username, email, "
+                                "first name or last name",
                 ),
             ],
         ),
@@ -100,19 +103,19 @@ def user_schema_view():
 
 def create_user_schema():
     return extend_schema(
-    tags=["signup"],
-    summary="New user registration.",
-    description="Creates account for the new user."
-)
+        tags=["signup"],
+        summary="New user registration.",
+        description="Creates account for the new user."
+    )
 
 
 def profile_schema():
     return extend_schema(
-    tags=["user profile"],
-    summary="Personal user information",
-    description="Retrieve and update the profile "
-                "of the currently authenticated user.",
-)
+        tags=["user profile"],
+        summary="Personal user information",
+        description="Retrieve and update the profile "
+                    "of the currently authenticated user.",
+    )
 
 
 def participated_events_schema():

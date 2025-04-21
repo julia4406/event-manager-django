@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from event.models import Event
 from event.serializers import EventSerializer
 
 
@@ -9,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     participated_events = EventSerializer(
         many=True,
         read_only=True,
-        source= "events"
+        source="events"
     )
 
     organized_events = EventSerializer(

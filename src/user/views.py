@@ -32,6 +32,7 @@ class UserListViewSet(ModelViewSet):
         "last_name"
     ]
 
+
 @create_user_schema()
 class CreateUserView(CreateAPIView):
     serializer_class = UserSerializer
@@ -63,6 +64,7 @@ class ParticipatedEventsView(ListAPIView):
 
     def get_queryset(self):
         return self.request.user.events.all()
+
 
 @organized_events_schema()
 class OrganizedEventsView(ListAPIView):
