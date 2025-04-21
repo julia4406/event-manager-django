@@ -1,10 +1,8 @@
-import datetime
-
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from event.models import Event
-from event.validators import EventValidators
+from event.validators import validate_not_in_past
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -16,7 +14,7 @@ class EventSerializer(serializers.ModelSerializer):
             "title",
             "description",
             "event_date",
-            "start_of_event",
+            "is_all_day",
             "location",
             "event_format",
             "organizer",
@@ -35,10 +33,7 @@ class EventSerializer(serializers.ModelSerializer):
         return fields
 
     def validate(self, data):
-        """Validate if meeting don't planned in the past"""
-        EventValidators.check_event_date_values(
-            event_date=data.get("event_date"),
-            start_of_event=data.get("start_of_event"),
-        )
+        event_date = data.get("event_date")
+        if event_date:
+            validate_not_in_past(event_date)
         return data
-

@@ -1,6 +1,8 @@
 from django.conf.global_settings import AUTH_USER_MODEL
 from django.db import models
 
+from event.validators import validate_not_in_past
+
 
 class Event(models.Model):
     class Format(models.TextChoices):
@@ -9,8 +11,8 @@ class Event(models.Model):
 
     title = models.CharField(max_length=63)
     description = models.TextField(blank=True)
-    event_date = models.DateField()
-    start_of_event = models.TimeField(blank=True, null=True)
+    event_date = models.DateTimeField(validators=[validate_not_in_past])
+    is_all_day = models.BooleanField(default=False)
     location = models.CharField(max_length=63, blank=True, null=True)
     event_format = models.CharField(max_length=15, choices=Format)
     organizer = models.ForeignKey(
@@ -25,9 +27,7 @@ class Event(models.Model):
     )
 
     def __str__(self):
-        if self.start_of_event:
-            return f"{self.title} on {self.event_date} at {self.start_of_event}"
-        return f"{self.title} on {self.event_date}"
+        return {self.title}
 
 
 class EventUser(models.Model):
