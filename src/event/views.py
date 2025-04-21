@@ -10,11 +10,13 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 
+from event.event_schema_decorator import event_schema_view
 from event.models import Event
 from event.serializers import EventSerializer
 from event.validators import EventValidators as validator
 
 
+@event_schema_view()
 class EventViewSet(ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
