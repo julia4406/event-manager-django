@@ -18,6 +18,7 @@ class CreateUserView(CreateAPIView):
 class ProfileView(RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = []
 
     def get_object(self):
         return self.request.user
@@ -28,3 +29,4 @@ class UserListViewSet(ModelViewSet):
     serializer_class = UserSerializer
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAdminUser]
+    filter_backends = []

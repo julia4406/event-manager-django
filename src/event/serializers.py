@@ -12,6 +12,8 @@ class EventSerializer(serializers.ModelSerializer):
         slug_field="username"
     )
 
+    organizer = serializers.StringRelatedField()
+
     class Meta:
         model = Event
         fields = [
