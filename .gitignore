@@ -1,4 +1,5 @@
 /test_task_22_04.txt
+**/migrations/
 
 ### Django ###
 *.log
@@ -349,3 +350,6 @@ poetry.toml
 
 # LSP config files
 pyrightconfig.json
+/src/event/migrations/
+/todo.txt
+/raw_readme.md
