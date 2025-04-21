@@ -1,7 +1,10 @@
+import datetime
+
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from event.models import Event
+from event.validators import EventValidators
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -30,4 +33,12 @@ class EventSerializer(serializers.ModelSerializer):
             fields["organizer"].queryset = get_user_model().objects.all()
 
         return fields
+
+    def validate(self, data):
+        """Validate if meeting don't planned in the past"""
+        EventValidators.check_event_date_values(
+            event_date=data.get("event_date"),
+            start_of_event=data.get("start_of_event"),
+        )
+        return data
 

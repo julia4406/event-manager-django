@@ -25,7 +25,19 @@ class EventValidators:
                         and not event.start_of_event
                 )
         ):
-            raise ValidationError("Event already started")
+            raise ValidationError("Event already started.")
+
+    @staticmethod
+    def check_event_date_values(event_date, start_of_event=None):
+        today = datetime.date.today()
+        now = datetime.datetime.now()
+        if (
+                event_date < today
+                or (
+                event_date == today and start_of_event and start_of_event < now)
+                or (event_date == today and start_of_event is None)
+        ):
+            raise ValidationError("New event couldn't be in the past.")
 
     @staticmethod
     def already_registred(request, event):
