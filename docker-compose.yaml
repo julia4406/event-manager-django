@@ -31,6 +31,20 @@ services:
       - .:/app
     restart: unless-stopped
 
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 2s
+      retries: 5
+      start_period: 2s
+      timeout: 2s
 
 volumes:
   postgres_data:
