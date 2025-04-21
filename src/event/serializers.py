@@ -6,6 +6,11 @@ from event.validators import validate_not_in_past
 
 
 class EventSerializer(serializers.ModelSerializer):
+    participants = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field="username"
+    )
 
     class Meta:
         model = Event
