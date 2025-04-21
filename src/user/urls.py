@@ -11,12 +11,15 @@ urlpatterns = [
     path("", include(router.urls)),
     path("signup/", views.CreateUserView.as_view(), name="signup"),
     path("profile/", views.ProfileView.as_view(), name="profile"),
-    path("profile/participated-events/",
+    path(
+        "profile/participated-events/",
         ParticipatedEventsView.as_view(),
         name="participated-events"),
-    path("profile/organized-events/",
+    path(
+        "profile/organized-events/",
         OrganizedEventsView.as_view(),
-        name="organized-events")
+        name="organized-events"
+    )
 ]
 
 app_name = "user"

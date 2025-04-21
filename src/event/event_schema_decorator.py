@@ -89,8 +89,8 @@ def event_schema_view():
             summary="Registration on event",
             description="Register current user on specific event.",
         ),
-        event_cancel_registration = extend_schema(
-        summary="Cancelling registration on event",
-        description="Cancel registration of current user for specific event.",
+        event_cancel_registration=extend_schema(
+            summary="Cancelling registration on event",
+            description="Cancel registration of current user for specific event.",
         )
     )

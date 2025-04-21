@@ -1,5 +1,3 @@
-import datetime
-
 from django.utils import timezone
 from rest_framework.exceptions import ValidationError, PermissionDenied
 
@@ -22,12 +20,10 @@ class EventValidators:
 
     @staticmethod
     def already_registred(request, event):
-        user = request.user
-        if user in event.participants.all():
+        if request.user in event.participants.all():
             raise ValidationError("You are already registered for this event.")
 
     @staticmethod
     def not_registred(request, event):
-        user = request.user
         if request.user not in event.participants.all():
             raise ValidationError("You are not registered for this event.")
