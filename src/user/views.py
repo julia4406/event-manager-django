@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django_filters.rest_framework import DjangoFilterBackend
-from drf_spectacular.utils import extend_schema, extend_schema_view
+from drf_spectacular.utils import extend_schema
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView, \
     ListAPIView
@@ -13,15 +13,12 @@ from rest_framework.viewsets import ModelViewSet
 
 from event.serializers import EventSerializer
 from user.serializers import UserSerializer
+from user.user_cschema_decorators import user_schema_view, create_user_schema, \
+    profile_schema, participated_events_schema, organized_events_schema
 
 
-@extend_schema(tags=["admin only: management user records"])
-@extend_schema(
-    tags=["admin only: management user records"],
-    summary="All information about registered users",
-    description="CRUD operations with profiles, "
-                "search by user (username, email, first and last name).",
-)
+@extend_schema(tags=["(admin only) manage user profile"])
+@user_schema_view()
 class UserListViewSet(ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
@@ -35,22 +32,13 @@ class UserListViewSet(ModelViewSet):
         "last_name"
     ]
 
-@extend_schema(
-    tags=["signup"],
-    summary="New user registration.",
-    description="Creates account for the new user."
-)
+@create_user_schema()
 class CreateUserView(CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = []
 
 
-@extend_schema(
-    tags=["user profile"],
-    summary="Personal user information",
-    description="Retrieve and update the profile "
-                "of the currently authenticated user.",
-)
+@profile_schema()
 class ProfileView(RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
@@ -59,12 +47,7 @@ class ProfileView(RetrieveUpdateAPIView):
         return self.request.user
 
 
-@extend_schema(
-    tags=["user profile"],
-    summary="List events the user is attending.",
-    description="Retrieves and filters events where "
-                "the current user is a participant.",
-)
+@participated_events_schema()
 class ParticipatedEventsView(ListAPIView):
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated]
@@ -81,12 +64,7 @@ class ParticipatedEventsView(ListAPIView):
     def get_queryset(self):
         return self.request.user.events.all()
 
-@extend_schema(
-    tags=["user profile"],
-    summary="Retrieve events organized by current user.",
-    description="Retrieves and filters events organized "
-                "by currently authenticated user.",
-)
+@organized_events_schema()
 class OrganizedEventsView(ListAPIView):
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated]

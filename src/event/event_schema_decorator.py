@@ -1,6 +1,9 @@
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import extend_schema_view, extend_schema, \
-    OpenApiExample, OpenApiParameter
+from drf_spectacular.utils import (
+    extend_schema_view,
+    extend_schema,
+    OpenApiParameter
+)
 
 event_filter_list_schema = {
     "parameters": [
@@ -79,7 +82,8 @@ def event_schema_view():
         ),
         destroy=extend_schema(
             summary="Delete an event",
-            description="Delete a specific event.",
+            description="Delete a specific event. Only owner(organizer) "
+                        "or admin allowed to delete the event.",
         ),
         event_registration=extend_schema(
             summary="Registration on event",
