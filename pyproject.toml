@@ -1,7 +1,7 @@
 [project]
 name = "src"
 version = "0.1.0"
-description = "event manager django"
+description = "event manager django rest framework"
 authors = [
     {name = "Julia Alexeeva",email = "yulia.alekseeva12@gmail.com"}
 ]
